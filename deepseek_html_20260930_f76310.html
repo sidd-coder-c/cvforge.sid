@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CVForge — Beautiful CVs. Simple pricing.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#15161d;--muted:#6f7180;--line:#e8e9ef;--soft:#f7f7fb;--brand:#5b5bf7;--brand-2:#7c5cff;--green:#1e9d6c;--white:#fff;--paper-scale:1;--shadow:0 24px 70px rgba(17,18,28,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"DM Sans",system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.5}button,input,textarea,select{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+.topbar{height:76px;padding:0 5.5vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(232,233,239,.8);position:sticky;top:0;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);z-index:20}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800}.brand-mark{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;display:grid;place-items:center;font-family:Manrope;font-size:12px;letter-spacing:-.5px;box-shadow:0 7px 20px rgba(91,91,247,.27)}.brand-text{font-family:Manrope;font-size:19px;letter-spacing:-.6px}.brand-text span{color:var(--brand)}
+.nav{display:flex;gap:32px;color:#5d5f6a;font-weight:600;font-size:14px}.nav a:hover{color:var(--ink)}.nav-actions{display:flex;gap:10px}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;transition:.2s;display:inline-flex;justify-content:center;align-items:center;gap:8px}.btn:hover{transform:translateY(-1px)}.btn-primary{background:var(--brand);color:#fff;box-shadow:0 10px 28px rgba(91,91,247,.24)}.btn-primary:hover{background:#4d4de7}.btn-soft{background:#f1f1f8;color:#252635}.btn-ghost{background:transparent;color:#353744}.btn-lg{padding:15px 21px;border-radius:14px;font-size:15px}.full{width:100%}
+.hero{max-width:1280px;margin:0 auto;padding:86px 5.5vw 65px;display:grid;grid-template-columns:1.04fr .96fr;gap:50px;align-items:center;min-height:690px}.eyebrow{font-size:12px;letter-spacing:1.2px;font-weight:800;color:#77798a;text-transform:uppercase}.hero .eyebrow{display:flex;align-items:center;gap:8px;color:#55586a}.status-dot{width:7px;height:7px;background:#25b278;border-radius:50%;box-shadow:0 0 0 5px rgba(37,178,120,.12)}h1,h2,h3{font-family:Manrope;margin:0;letter-spacing:-1.7px}.hero h1{font-size:clamp(48px,6.1vw,82px);line-height:1.02;margin-top:20px;max-width:690px}.hero h1 span,.center-heading h2 span,.pricing h2 span,.final-cta h2 span{color:var(--brand)}.hero-sub{font-size:18px;color:var(--muted);max-width:620px;margin:26px 0 28px}.hero-actions{display:flex;gap:11px;flex-wrap:wrap}.hero-proof{display:flex;align-items:center;gap:12px;margin-top:28px}.avatars{display:flex}.avatars span{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#ececf6;border:2px solid #fff;margin-left:-6px;font-size:10px;font-weight:800}.avatars span:first-child{margin-left:0}.hero-proof strong,.hero-proof small{display:block}.hero-proof strong{font-size:12px}.hero-proof small{font-size:11px;color:#878996;margin-top:2px}
+.hero-visual{position:relative}.glow{position:absolute;border-radius:50%;filter:blur(35px);pointer-events:none}.glow-a{width:220px;height:220px;background:rgba(104,90,255,.18);top:-30px;left:-30px}.glow-b{width:260px;height:260px;background:rgba(92,217,179,.15);bottom:-50px;right:-50px}.browser-frame{position:relative;background:#191a22;padding:11px;border-radius:24px;box-shadow:0 30px 90px rgba(24,25,33,.17);transform:rotate(1deg)}.browser-top{height:29px;display:flex;align-items:center;gap:6px;color:#8d8f9b;font-size:8px;padding:0 8px}.browser-top span{width:7px;height:7px;border-radius:50%;background:#484954}.browser-top div{margin-left:10px;font-family:monospace;background:#24252e;border-radius:6px;padding:4px 9px}.mock-editor{display:grid;grid-template-columns:132px 1fr;background:#f0f0f4;border-radius:15px;overflow:hidden;min-height:465px}.mock-sidebar{background:#fafafd;padding:17px 11px}.mock-mini-title{font:800 10px Manrope;margin:0 6px 14px}.mock-card{font-size:8px;color:#7b7d8b;padding:9px 7px;border-radius:8px;margin:3px 0}.mock-card span{opacity:.55;margin-right:7px}.mock-card.active{background:#ececff;color:#3e3fe5;font-weight:700}.mock-canvas{padding:24px;display:grid;place-items:center}.mock-cv{width:min(100%,440px);background:white;box-shadow:0 10px 30px rgba(10,10,20,.08);padding:27px;font-size:7px;line-height:1.6}.mock-cv-head{display:flex;justify-content:space-between;gap:12px}.mock-cv h3{font:800 20px Manrope;letter-spacing:-1px}.mock-cv-head p{font-size:8px;color:var(--brand);font-weight:700;margin:3px 0}.mock-contact{text-align:right;color:#777;font-size:6px}.mock-rule{height:2px;background:#161720;margin:17px 0}.mock-cv h4{font-size:6px;letter-spacing:1.2px;margin:0 0 6px}.mock-cv section p{margin:0;color:#666}.mock-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:16px}.mock-item b{font-size:7px;display:block}.mock-item span{color:#92939b;font-size:5.5px}.chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px}.chips i{font-style:normal;background:#f0f0f5;padding:3px 5px;border-radius:4px;color:#50515b}
+.metric-strip{max-width:1170px;margin:0 auto 20px;padding:23px 27px;border:1px solid var(--line);border-radius:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;background:#fff}.metric-strip div{display:flex;align-items:center;gap:11px;justify-content:center;border-right:1px solid var(--line)}.metric-strip div:last-child{border-right:0}.metric-strip strong{font:800 22px Manrope}.metric-strip span{font-size:11px;color:var(--muted)}
+.section{max-width:1280px;margin:0 auto;padding:110px 5.5vw}.center-heading{text-align:center;margin-bottom:44px}.center-heading h2,.pricing h2,.final-cta h2{font-size:48px;line-height:1.04;margin-top:10px}.center-heading p{margin-top:10px;color:var(--muted)}
+.templates-section{background:#fcfcfe;max-width:none;padding-left:5.5vw;padding-right:5.5vw}
+.template-showcase{max-width:1240px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.template-card{border:1px solid var(--line);border-radius:20px;background:#fff;padding:10px;text-align:left;transition:.2s;position:relative}
+.template-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(25,25,40,.08)}
+.template-card.is-locked{cursor:pointer}
+.template-meta{display:flex;justify-content:space-between;align-items:center;padding:12px 8px 4px}
+.template-meta strong{font-size:12.5px;display:block}
+.template-meta div span{font-size:10px;color:var(--muted);display:block;margin-top:1px}
+.arrow{font-size:16px;color:#737487}.lock-badge{font-size:12px;opacity:.7}
+.template-preview{aspect-ratio:4/3;border-radius:14px;background:var(--pv-bg,#f6f6fa);color:var(--pv-fg,#15161d);padding:14px;overflow:hidden;font-family:"DM Sans";position:relative}
+.template-preview b{font-weight:800}
+.pv-head{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800}
+.pv-head span{font-size:7px;color:var(--pv-accent,#888);font-weight:700}
+.pv-name{font-size:13px;letter-spacing:-.3px}
+.pv-title{font-size:7px;color:var(--pv-accent);font-weight:700;margin-top:2px}
+.pv-rule{height:1px;background:var(--pv-fg);opacity:.55;margin:8px 0}
+.pv-lines i{display:block;height:4px;background:var(--pv-fg);opacity:.14;border-radius:2px;margin-bottom:5px}
+.pv-lines i:nth-child(2){width:85%}.pv-lines i:nth-child(3){width:70%}
+.pv-cols{display:grid;grid-template-columns:1.5fr 1fr;gap:10px;margin-top:4px}
+.pv-cols i,.pv-cols em{display:block;height:4px;background:var(--pv-fg);opacity:.14;border-radius:2px;margin-bottom:5px}
+.pv-center{text-align:center}.pv-center .pv-name{font-size:14px}
+.pv-band{background:var(--pv-accent);color:#fff;padding:10px;border-radius:8px;margin:-14px -14px 12px;text-align:center}
+.pv-band b{display:block;color:#fff;font-size:13px}
+.pv-band span{font-size:7px;opacity:.85;font-weight:700;letter-spacing:1px}
+.pv-rail{display:grid;grid-template-columns:55px 1fr;gap:10px}
+.pv-rail b{font-size:8px;display:block;margin-bottom:6px;color:var(--pv-accent)}
+.pv-rail i,.pv-main em{display:block;height:4px;background:var(--pv-fg);opacity:.16;border-radius:2px;margin-bottom:5px}
+.pv-side{display:grid;grid-template-columns:60px 1fr;gap:10px}
+.pv-side-col{background:var(--pv-accent);padding:8px;border-radius:6px;color:#fff}
+.pv-side-col b{font-size:8px;display:block;margin-bottom:6px;color:#fff}
+.pv-side-col i{display:block;height:3px;background:rgba(255,255,255,.5);border-radius:2px;margin-bottom:4px}
+.preview-modern{--pv-bg:#1d1e26;--pv-fg:#fff;--pv-accent:#8b87ff}
+.preview-minimal{--pv-bg:#fafafa;--pv-fg:#15161d;--pv-accent:#7a7c88}
+.preview-classic{--pv-bg:#fff;--pv-fg:#1a1a1a;--pv-accent:#6a6a6a}
+.preview-executive{--pv-bg:#fdfcf8;--pv-fg:#1c1d24;--pv-accent:#a08a55}
+.preview-tech{--pv-bg:#0f1517;--pv-fg:#e7f4f1;--pv-accent:#35d0b5}
+.preview-elegant{--pv-bg:#f4efe6;--pv-fg:#3a3226;--pv-accent:#8a7654}
+.preview-nordic{--pv-bg:#f6f7f9;--pv-fg:#1c2024;--pv-accent:#6b8ca3}
+.preview-bold{--pv-bg:#fff;--pv-fg:#0a0a0a;--pv-accent:#111}
+.preview-compact{--pv-bg:#fff;--pv-fg:#222;--pv-accent:#555}
+.preview-academic{--pv-bg:#fbfaf5;--pv-fg:#1a1a1a;--pv-accent:#7c5c2a}
+.preview-creative{--pv-bg:#fff;--pv-fg:#222;--pv-accent:#7c5cff}
+.preview-corporate{--pv-bg:#fff;--pv-fg:#16243b;--pv-accent:#1e4d8b}
+.preview-timeline{--pv-bg:#fff;--pv-fg:#1a1a1a;--pv-accent:#c25a3b}
+.preview-monochrome{--pv-bg:#fff;--pv-fg:#000;--pv-accent:#000}
+.preview-sidebarPro{--pv-bg:#fff;--pv-fg:#1a1a1a;--pv-accent:#111827}
+.preview-gradient{--pv-bg:#fff;--pv-fg:#222;--pv-accent:#6d5ce7}
+.preview-editorial{--pv-bg:#fefcf8;--pv-fg:#111;--pv-accent:#b08a3a}
+.preview-sharp{--pv-bg:#fff;--pv-fg:#0d0d0d;--pv-accent:#e5252a}
+.preview-soft{--pv-bg:#fef7f4;--pv-fg:#3a3038;--pv-accent:#e9a0b4}
+.preview-premium{--pv-bg:#0e0e10;--pv-fg:#f2eee6;--pv-accent:#c9a24b}
+.pricing{max-width:none;background:#16171f;color:#fff;padding:110px 5.5vw}.pricing-wrap{max-width:1000px;margin:auto;display:grid;grid-template-columns:.9fr 1.15fr;gap:60px;align-items:center}.pricing .eyebrow{color:#979aa9}.pricing h2{font-size:45px}.price-copy p{color:#a8a9b5;max-width:470px;font-size:14px}.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.price-card{position:relative;background:#20212a;border:1px solid #30313d;border-radius:18px;padding:24px;min-height:270px}.price-card.popular{border-color:#716cff;background:linear-gradient(180deg,#25243b,#20212a)}.popular-badge{position:absolute;top:-11px;right:13px;background:#fff;color:#4442a8;border-radius:99px;padding:5px 8px;font-size:8px;font-weight:800}.price-tag{font-size:10px;letter-spacing:1.3px;color:#8f92a2;font-weight:800}.price{font:800 40px Manrope;margin-top:13px}.price-card p{color:#b0b1bc;font-size:12px;margin:0 0 23px}.price-card .btn-soft{background:#30313b;color:#fff}.price-card small{display:block;color:#818390;font-size:9px;margin-top:11px}
+.final-cta{display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:320px}.final-cta h2{font-size:46px}.footer{padding:30px 5.5vw;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;color:#888b98;font-size:11px}.footer>p{text-align:center;margin:0}.footer>div:last-child{text-align:right}
+
+/* ========= EDITOR (scroll fixed) ========= */
+.editor-shell{position:fixed;inset:0;background:#efeff5;z-index:100;display:none;flex-direction:column;overflow:hidden}
+.editor-shell.open{display:flex}
+.editor-topbar{height:66px;background:#fff;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 18px;flex:0 0 66px}
+.editor-brand{display:flex;align-items:center;gap:9px}.editor-brand strong{font:800 16px Manrope}
+.icon-btn{background:transparent;border:0;font-size:27px;line-height:1;padding:3px 7px;color:#575967}
+.editor-actions{display:flex;gap:8px;align-items:center}.save-state{font-size:11px;color:var(--green);margin-right:7px}
+.editor-grid{display:grid;grid-template-columns:390px 1fr;min-height:0;flex:1;overflow:hidden}
+.control-panel{background:#fff;border-right:1px solid var(--line);padding:25px 22px;overflow-y:auto;overflow-x:hidden;min-height:0;max-height:100%}
+.panel-intro h2{font-size:26px;margin-top:3px}.panel-intro p{font-size:12px;color:var(--muted);margin:4px 0 18px}
+.section-tabs{display:flex;gap:5px;overflow:auto;margin-bottom:19px}
+.tab{flex:0 0 auto;border:0;background:#f3f3f8;border-radius:9px;padding:8px 11px;font-size:11px;color:#6b6d7c;font-weight:700}
+.tab.active{background:#ececff;color:#4d4be4}
+.form-tab{display:none}.form-tab.active{display:block}
+label{display:block;font-size:11px;font-weight:800;color:#565866;margin-bottom:12px}
+.hint{font-weight:500;color:#a0a1ac}
+.form-two{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+input,textarea,select{width:100%;border:1px solid #e2e3eb;background:#fbfbfd;border-radius:9px;padding:10px 11px;margin-top:5px;outline:none;font-size:12px;color:#252632;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:#8c8af7;box-shadow:0 0 0 3px rgba(91,91,247,.08)}
+.item-form{border:1px solid var(--line);padding:12px;border-radius:12px;margin-bottom:9px;background:#fcfcfe}
+.item-form .remove{float:right;border:0;background:none;color:#a1a2af;font-size:15px}
+.add-btn{width:100%;border:1px dashed #cfd0db;background:#fafafd;border-radius:10px;padding:11px;font-size:11px;font-weight:800;color:var(--brand)}
+.panel-tip{margin-top:18px;background:#faf9ff;border:1px solid #ece9ff;border-radius:12px;padding:11px;font-size:10px;color:#7c7e8b}
+.panel-tip b{color:#5653da}
+.preview-panel{min-width:0;min-height:0;max-height:100%;overflow:hidden;display:flex;flex-direction:column}
+.preview-toolbar{height:54px;background:#f5f5f9;border-bottom:1px solid #e0e1e9;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.preview-label{font-size:9px;font-weight:800;letter-spacing:1px}
+.paper-size{font-size:9px;color:#8f919e;margin-left:10px}
+.zoom-controls{display:flex;align-items:center;gap:5px}
+.zoom-controls button{width:26px;height:26px;border:1px solid #d7d8e1;background:#fff;border-radius:7px;color:#626473}
+.zoom-controls span{font-size:10px;color:#757786;width:42px;text-align:center}
+.paper-stage{overflow:auto;padding:38px 30px 70px;background:radial-gradient(circle at 50% 0,#fafafe,#edeef3);min-height:0;flex:1;text-align:center}
+.cv-paper{display:inline-block;text-align:left;vertical-align:top;width:794px;min-height:1123px;background:#fff;box-shadow:0 22px 55px rgba(30,31,42,.15);zoom:var(--paper-scale);padding:55px 58px;overflow:hidden}
+
+/* ========= CV OUTPUT ========= */
+.cv-header{display:flex;justify-content:space-between;gap:35px}
+.cv-name{font:800 34px Manrope;letter-spacing:-1.4px;line-height:1.04}
+.cv-title{font-size:13px;color:var(--brand);font-weight:800;margin-top:5px}
+.cv-contact{font-size:8.5px;line-height:1.75;color:#666975}
+.cv-contact a{color:inherit}
+.cv-summary{font-size:9.5px;line-height:1.65;color:#555762;max-width:690px;margin:19px 0 16px}
+.cv-rule{height:1.5px;background:#171821;margin-top:14px}
+.cv-section{margin-bottom:23px}
+.cv-section-title{font-size:8px;font-weight:900;letter-spacing:1.7px;margin:0 0 11px;color:#333540;text-transform:uppercase}
+.cv-entry{margin-bottom:15px}
+.cv-entry-head{display:flex;justify-content:space-between;gap:15px}
+.cv-entry-title{font-size:10.5px;font-weight:800}
+.cv-entry-meta{font-size:8px;color:#91929c;white-space:nowrap}
+.cv-entry-sub{font-size:8.5px;color:#666975;margin-top:1px}
+.cv-entry p,.cv-entry li{font-size:8.6px;color:#5e606b;line-height:1.55}
+.cv-entry p{margin:5px 0 0}.cv-entry ul{padding-left:13px;margin:5px 0 0}
+.cv-skills{display:flex;flex-wrap:wrap;gap:6px}
+.cv-skill{font-size:8px;padding:5px 7px;border-radius:5px;background:#f0f0f5;color:#4c4e5b}
+.cv-lines{font-size:8.5px;line-height:1.65;color:#5f616c}.cv-lines div{margin-bottom:5px}
+.cv-header-centered{display:block;text-align:center}
+.cv-contact-inline{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;font-size:8.5px;color:#666975;margin-top:11px}
+.cv-contact-stacked{text-align:right;max-width:250px}
+.cv-body-split{display:grid;grid-template-columns:1.65fr .85fr;gap:35px;margin-top:18px}
+.cv-body-single{display:block;margin-top:18px}
+.cv-rail-layout{display:grid;grid-template-columns:210px 1fr;gap:0}
+.cv-rail{padding:0 26px 0 0;border-right:1px solid #e3e5e9}
+.cv-rail-divider{height:1px;background:#d8dade;margin:18px 0}
+.cv-rail-main{padding-left:26px}
+.cv-sidebar-layout{display:grid;grid-template-columns:245px 1fr;min-height:1123px;margin:-55px -58px;width:calc(100% + 116px)}
+.cv-sidebar-col{padding:55px 30px 55px 58px}
+.cv-sidebar-main{padding:55px 58px 55px 34px}
+.cv-side-divider{height:1px;background:rgba(0,0,0,.12);margin:22px 0}
+.cv-band{padding:32px 34px;border-radius:12px;margin:-8px 0 20px;text-align:center;background:var(--band-bg,#1d1e26);color:var(--band-fg,#fff)}
+.cv-band .cv-name{color:var(--band-fg,#fff);font-size:32px}
+.cv-band .cv-title{color:var(--band-fg,#fff);opacity:.85;margin-top:4px}
+.cv-band .cv-contact-inline{color:var(--band-fg,#fff);opacity:.85}
+
+/* Template themes */
+.template-minimal{padding:63px 66px}.template-minimal .cv-rule{background:#d9d9df}.template-minimal .cv-section-title{color:#777983}.template-minimal .cv-skill{background:#f7f7f9}
+.template-classic .cv-name{font-family:"Playfair Display",serif;font-size:36px}
+.template-classic .cv-rule{background:#222}
+.template-classic .cv-section-title{font-family:"Playfair Display";font-size:12px;letter-spacing:.2px;text-transform:none}
+.template-classic .cv-skill{background:transparent;border-bottom:1px solid #dedfe5;border-radius:0;padding:4px 0}
+.template-executive{padding:60px 62px}.template-executive .cv-name{font-family:"Playfair Display";font-size:36px}.template-executive .cv-title{color:#8a7654;letter-spacing:2px;font-size:10px;text-transform:uppercase}.template-executive .cv-rule{background:#1c1d24}.template-executive .cv-section-title{font-family:"Playfair Display";font-size:13px;letter-spacing:.2px;text-transform:none;border-bottom:1px solid #d8d9e0;padding-bottom:5px}
+.template-tech{padding:55px 58px}.template-tech .cv-rule{background:#0e7a6b}.template-tech .cv-title{color:#0e7a6b;letter-spacing:.6px}.template-tech .cv-section-title{color:#0e7a6b;letter-spacing:1.4px}.template-tech .cv-skill{background:#e7f4f1;color:#0e7a6b;font-weight:700}
+.template-elegant{padding:0}.template-elegant .cv-sidebar-layout{grid-template-columns:255px 1fr}.template-elegant .cv-sidebar-col{background:#f4efe6;color:#3a3226}.template-elegant .cv-sidebar-col .cv-name{font:800 25px Manrope;letter-spacing:-1px}.template-elegant .cv-sidebar-col .cv-title{color:#7a6a52;font-weight:800;font-size:10px;margin-top:6px}.template-elegant .cv-sidebar-col .cv-contact-stacked{color:#5b5243;text-align:left;margin-top:18px}.template-elegant .cv-sidebar-col .cv-section-title{color:#7a6a52}.template-elegant .cv-sidebar-col .cv-skill{background:#e7ded0;color:#5b5243}
+.template-nordic .cv-rule{background:#c9d3dc}.template-nordic .cv-section-title{color:#6b8ca3;letter-spacing:1.6px}.template-nordic .cv-skill{background:#eef3f7;color:#3f5866}
+.template-bold{padding:0}.template-bold .cv-band{border-radius:0;margin:0 0 24px;padding:48px 58px 40px;text-align:left;background:#0a0a0a;--band-fg:#fff}.template-bold .cv-band .cv-name{font-size:52px;letter-spacing:-2.5px}.template-bold .cv-band .cv-contact-inline{justify-content:flex-start}.template-bold .cv-body-split,.template-bold .cv-rule,.template-bold .cv-summary{margin-left:58px;margin-right:58px}.template-bold .cv-rule{background:#0a0a0a}.template-bold .cv-summary{max-width:none}
+.template-compact{padding:42px 48px}.template-compact .cv-name{font-size:26px}.template-compact .cv-entry{margin-bottom:10px}.template-compact .cv-section{margin-bottom:14px}.template-compact .cv-entry p,.template-compact .cv-entry li,.template-compact .cv-entry-sub{font-size:8px}
+.template-academic{padding:60px 64px}.template-academic .cv-name{font-family:"Playfair Display";font-size:34px;font-variant:small-caps;letter-spacing:.5px}.template-academic .cv-title{color:#7c5c2a;font-variant:small-caps;letter-spacing:1.5px}.template-academic .cv-rule{background:#7c5c2a;height:1px}.template-academic .cv-section-title{font-family:"Playfair Display";font-size:13px;font-variant:small-caps;text-transform:none;border-bottom:1px solid #d8d0bc;padding-bottom:4px}
+.template-creative{padding:0}.template-creative .cv-band{background:linear-gradient(120deg,#7c5cff,#ff5c9e);border-radius:0;margin:0 0 24px;padding:44px 58px 38px;--band-fg:#fff}.template-creative .cv-body-split,.template-creative .cv-summary{margin-left:58px;margin-right:58px}.template-creative .cv-rule{background:linear-gradient(90deg,#7c5cff,#ff5c9e);height:2px;margin:0 58px}
+.template-corporate .cv-rule{background:#1e4d8b;height:2px}.template-corporate .cv-title{color:#1e4d8b}.template-corporate .cv-section-title{color:#1e4d8b;letter-spacing:1.6px}.template-corporate .cv-skill{background:#e8eff7;color:#1e4d8b}
+.template-timeline .cv-rail{background:#fbf7f4;border-right:1px solid #eadbd2;padding:8px 26px 0 0}.template-timeline .cv-rail .cv-name{font-size:22px}.template-timeline .cv-title{color:#c25a3b}.template-timeline .cv-rule{background:#c25a3b}.template-timeline .cv-section-title{color:#c25a3b}.template-timeline .cv-entry{border-left:2px solid #eadbd2;padding-left:12px;position:relative}.template-timeline .cv-entry::before{content:"";position:absolute;left:-5px;top:3px;width:8px;height:8px;background:#c25a3b;border-radius:50%}
+.template-monochrome{filter:saturate(0)}.template-monochrome .cv-rule{background:#000}.template-monochrome .cv-skill{background:#efefef;color:#000;border-radius:0}.template-monochrome .cv-section-title{color:#000}
+.template-sidebarPro{padding:0}.template-sidebarPro .cv-sidebar-layout{grid-template-columns:245px 1fr}.template-sidebarPro .cv-sidebar-col{background:#111827;color:#e5e7eb}.template-sidebarPro .cv-sidebar-col .cv-name{color:#fff;font:800 25px Manrope}.template-sidebarPro .cv-sidebar-col .cv-title{color:#9ca3af;font-weight:700;font-size:10px;margin-top:6px}.template-sidebarPro .cv-sidebar-col .cv-contact-stacked{color:#cbd5e1;text-align:left;margin-top:18px}.template-sidebarPro .cv-sidebar-col .cv-section-title{color:#93c5fd}.template-sidebarPro .cv-sidebar-col .cv-skill{background:#1f2937;color:#cbd5e1}.template-sidebarPro .cv-sidebar-col .cv-entry-title{color:#fff}.template-sidebarPro .cv-sidebar-col .cv-entry-sub,.template-sidebarPro .cv-sidebar-col .cv-entry p{color:#9ca3af}.template-sidebarPro .cv-side-divider{background:rgba(255,255,255,.15)}
+.template-gradient{padding:0}.template-gradient .cv-band{background:linear-gradient(135deg,#6d5ce7,#4fa3d9);border-radius:0;margin:0 0 24px;padding:44px 58px 38px;--band-fg:#fff}.template-gradient .cv-body-split,.template-gradient .cv-summary{margin-left:58px;margin-right:58px}.template-gradient .cv-rule{background:linear-gradient(90deg,#6d5ce7,#4fa3d9);height:2px;margin:0 58px}
+.template-editorial{padding:65px 70px}.template-editorial .cv-name{font-family:"Playfair Display";font-size:48px;letter-spacing:-1.5px;line-height:1}.template-editorial .cv-title{font-family:"Playfair Display";font-style:italic;font-size:14px;color:#b08a3a}.template-editorial .cv-rule{background:#111;height:2px}.template-editorial .cv-section-title{font-family:"Playfair Display";font-size:20px;text-transform:none;font-style:italic;color:#111;border-bottom:1px solid #e4dfd2;padding-bottom:6px}
+.template-sharp{padding:52px 56px}.template-sharp .cv-rule{background:#0d0d0d;height:3px}.template-sharp .cv-title{color:#e5252a;letter-spacing:1.6px}.template-sharp .cv-section-title{color:#0d0d0d;letter-spacing:2.4px;border-left:3px solid #e5252a;padding-left:8px}.template-sharp .cv-skill{background:#0d0d0d;color:#fff;border-radius:0}
+.template-soft{padding:0}.template-soft .cv-band{background:#fef7f4;color:#3a3038;border-radius:0;margin:0 0 24px;padding:44px 58px 38px;--band-fg:#3a3038}.template-soft .cv-band .cv-name{color:#3a3038}.template-soft .cv-band .cv-title{color:#e9a0b4}.template-soft .cv-band .cv-contact-inline{color:#7a6d72}.template-soft .cv-body-split,.template-soft .cv-summary{margin-left:58px;margin-right:58px}.template-soft .cv-rule{background:#e9a0b4;height:2px;margin:0 58px}.template-soft .cv-section-title{color:#b5657e}.template-soft .cv-skill{background:#fbe7ed;color:#b5657e;border-radius:99px}
+.template-premium{padding:0}.template-premium .cv-sidebar-layout{grid-template-columns:255px 1fr}.template-premium .cv-sidebar-col{background:#0e0e10;color:#f2eee6}.template-premium .cv-sidebar-col .cv-name{color:#c9a24b;font-family:"Playfair Display";font-size:24px}.template-premium .cv-sidebar-col .cv-title{color:#a08048;font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px}.template-premium .cv-sidebar-col .cv-contact-stacked{color:#c8c2b6;text-align:left;margin-top:18px}.template-premium .cv-sidebar-col .cv-section-title{color:#c9a24b}.template-premium .cv-sidebar-col .cv-skill{background:#1c1a18;color:#c9a24b;border:1px solid #2b2822}.template-premium .cv-sidebar-col .cv-entry-title{color:#f2eee6}.template-premium .cv-sidebar-col .cv-entry-sub{color:#9a948a}.template-premium .cv-side-divider{background:rgba(201,162,75,.3)}.template-premium .cv-rule{background:#0e0e10}
+
+/* Upgrade modal */
+.upgrade-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.upgrade-modal.open{display:flex}
+.upgrade-backdrop{position:absolute;inset:0;background:rgba(15,16,24,.55);backdrop-filter:blur(6px)}
+.upgrade-card{position:relative;background:#fff;border-radius:22px;padding:32px 28px 26px;width:min(420px,100%);box-shadow:0 30px 80px rgba(10,10,20,.35)}
+.upgrade-close{position:absolute;top:10px;right:14px;border:0;background:transparent;font-size:24px;color:#9a9ba6;line-height:1}
+.upgrade-eyebrow{font-size:11px;letter-spacing:1.4px;font-weight:800;color:var(--brand);text-transform:uppercase}
+.upgrade-card h3{font:800 22px Manrope;letter-spacing:-.7px;margin:8px 0}
+.upgrade-card p{font-size:13px;color:var(--muted);margin:0 0 16px}
+.upgrade-list{list-style:none;padding:0;margin:0 0 20px;font-size:13px;color:#4b4d59}
+.upgrade-list li{padding:5px 0;border-bottom:1px solid #f1f1f5}
+.upgrade-list li:last-child{border-bottom:0}
+.upgrade-note{display:block;font-size:10px;color:#9a9ba6;margin-top:10px;text-align:center}
+
+@media(max-width:1100px){.template-showcase{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1000px){.hero{grid-template-columns:1fr}.metric-strip{margin:0 5.5vw}.pricing-wrap{grid-template-columns:1fr;gap:35px}}
+@media(max-width:760px){.topbar{padding:0 20px}.nav{display:none}.hero{padding:48px 20px}.section{padding:80px 20px}.center-heading h2,.pricing h2,.final-cta h2{font-size:38px}.template-showcase{grid-template-columns:1fr 1fr}.price-grid{grid-template-columns:1fr}.final-cta{flex-direction:column;align-items:flex-start}.footer{grid-template-columns:1fr;gap:10px;text-align:center}.footer>p,.footer>div:last-child{text-align:center}.editor-topbar{padding:0 9px}.editor-actions .save-state,.editor-actions #resetBtn{display:none}.editor-grid{grid-template-columns:1fr}.control-panel{position:absolute;left:0;right:0;bottom:0;top:66px;z-index:3;width:100%;border-right:0;border-top:1px solid var(--line);padding-bottom:35px}.preview-panel{height:calc(100vh - 66px)}.paper-stage{padding:25px 0 50px}.cv-paper{zoom:.65}}
+@media print{body{background:#fff!important}.topbar,.hero,.metric-strip,.section,.footer,.editor-topbar,.control-panel,.preview-toolbar,.upgrade-modal{display:none!important}.editor-shell{position:static!important;background:#fff!important;display:block!important}.editor-grid{display:block!important}.paper-stage{padding:0!important;background:#fff!important;display:block!important;overflow:visible!important;min-height:auto!important}.cv-paper{box-shadow:none!important;zoom:1!important;display:block!important;margin:0 auto!important;width:794px!important;min-height:1123px!important}@page{size:A4;margin:0}}
+</style>
+</head>
+<body>
+<header class="topbar" id="top">
+  <a class="brand" href="#top"><span class="brand-mark">CV</span><span class="brand-text">CV<span>Forge</span></span></a>
+  <nav class="nav"><a href="#templates">Templates</a><a href="#pricing">Pricing</a></nav>
+  <div class="nav-actions"><button class="btn btn-ghost" id="openBuilderTop">Create CV</button></div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="status-dot"></span> Built for students, freshers &amp; working professionals</div>
+    <h1>A CV that looks<br><span>expensive.</span><br>Without the price.</h1>
+    <p class="hero-sub">Build a recruiter-ready CV in minutes. Twenty elegant templates, live editing, one-click PDF export. Two free forever — unlock all for ₹49.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary btn-lg" id="openBuilderHero">Build my CV <span>→</span></button>
+      <a class="btn btn-soft btn-lg" href="#templates">See 20 templates</a>
+    </div>
+    <div class="hero-proof">
+      <div class="avatars"><span>H</span><span>A</span><span>R</span><span>+</span></div>
+      <div><strong>Made in India for the real job market</strong><small>ATS-friendly • Clean typography • PDF ready</small></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="glow glow-a"></div><div class="glow glow-b"></div>
+    <div class="browser-frame">
+      <div class="browser-top"><span></span><span></span><span></span><div>cvforge.app/editor</div></div>
+      <div class="mock-editor">
+        <div class="mock-sidebar">
+          <div class="mock-mini-title">Your CV</div>
+          <div class="mock-card active"><span>01</span> Personal</div>
+          <div class="mock-card"><span>02</span> Experience</div>
+          <div class="mock-card"><span>03</span> Education</div>
+          <div class="mock-card"><span>04</span> Skills</div>
+        </div>
+        <div class="mock-canvas">
+          <article class="mock-cv">
+            <div class="mock-cv-head">
+              <div><h3>Arjun Mehta</h3><p>Embedded Systems Engineer</p></div>
+              <div class="mock-contact">Bengaluru, India<br>arjun@email.com<br>+91 98••••••21</div>
+            </div>
+            <div class="mock-rule"></div>
+            <section><h4>PROFILE</h4><p>Electronics engineer focused on embedded firmware and connected products.</p></section>
+            <section class="mock-grid">
+              <div><h4>EXPERIENCE</h4><div class="mock-item"><b>Embedded Intern</b><span>2025 — 2026</span><p>Built STM32 firmware and reusable drivers.</p></div></div>
+              <div><h4>SKILLS</h4><div class="chips"><i>C</i><i>STM32</i><i>UART</i><i>Git</i></div></div>
+            </section>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="metric-strip">
+  <div><strong>5 min</strong><span>to a polished CV</span></div>
+  <div><strong>20</strong><span>premium templates</span></div>
+  <div><strong>₹49</strong><span>one-time unlock</span></div>
+  <div><strong>1-click</strong><span>PDF export</span></div>
+</section>
+
+<section class="templates-section section" id="templates">
+  <div class="center-heading">
+    <div class="eyebrow">Designed to be remembered</div>
+    <h2>Twenty styles. <span>One strong impression.</span></h2>
+    <p>Two templates free forever. Unlock all twenty for ₹49 — one-time.</p>
+  </div>
+  <div class="template-showcase" id="templateGrid"></div>
+</section>
+
+<section class="pricing section" id="pricing">
+  <div class="pricing-wrap">
+    <div class="price-copy">
+      <div class="eyebrow">Fair pricing</div>
+      <h2>Two templates free.<br>Everything for <span>₹49.</span></h2>
+      <p>No subscriptions, no monthly fees. Pay once, use forever on this device.</p>
+    </div>
+    <div class="price-grid">
+      <article class="price-card">
+        <div class="price-tag">FREE</div>
+        <div class="price">₹0</div>
+        <p>2 basic templates</p>
+        <button class="btn btn-soft full" id="priceFree">Start free</button>
+        <small>Modern &amp; Minimal • Local saving • PDF export</small>
+      </article>
+      <article class="price-card popular">
+        <div class="popular-badge">BEST VALUE</div>
+        <div class="price-tag">ONE-TIME</div>
+        <div class="price">₹49</div>
+        <p>All 20 premium templates</p>
+        <button class="btn btn-primary full" id="pricePaid">Unlock all templates</button>
+        <small>Lifetime access • Unlimited PDF exports</small>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta section">
+  <div><div class="eyebrow">Ready?</div><h2>Your next opportunity deserves<br><span>a better first page.</span></h2></div>
+  <button class="btn btn-primary btn-lg" id="openBuilderFinal">Create my CV →</button>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="brand"><span class="brand-mark">CV</span><span class="brand-text">CV<span>Forge</span></span></div>
+  <p>Beautiful CVs. Simple pricing. Built for India.</p>
+  <div>© 2026 CVForge</div>
+</footer>
+
+<div class="editor-shell" id="editorShell" aria-hidden="true">
+  <div class="editor-topbar">
+    <div class="editor-brand"><button class="icon-btn" id="closeBuilder" aria-label="Close editor">×</button><span class="brand-mark">CV</span><strong>CVForge</strong></div>
+    <div class="editor-actions">
+      <span class="save-state" id="saveState">Saved locally</span>
+      <button class="btn btn-soft" id="resetBtn">Reset</button>
+      <button class="btn btn-primary" id="downloadBtn">Download PDF ↓</button>
+    </div>
+  </div>
+  <div class="editor-grid">
+    <aside class="control-panel">
+      <div class="panel-intro"><div class="eyebrow">CV editor</div><h2>Build your story.</h2><p>Changes appear instantly.</p></div>
+      <div class="section-tabs">
+        <button class="tab active" data-tab="personal">Personal</button>
+        <button class="tab" data-tab="experience">Work</button>
+        <button class="tab" data-tab="education">Education</button>
+        <button class="tab" data-tab="skills">Skills</button>
+        <button class="tab" data-tab="projects">Projects</button>
+      </div>
+      <div class="form-tab active" id="tab-personal">
+        <label>Full name<input data-field="name" /></label>
+        <label>Professional title<input data-field="title" /></label>
+        <div class="form-two"><label>Email<input data-field="email" /></label><label>Phone<input data-field="phone" /></label></div>
+        <label>Location<input data-field="location" /></label>
+        <div class="form-two"><label>Website<input data-field="website" /></label><label>LinkedIn<input data-field="linkedin" /></label></div>
+        <label>Profile / Summary<textarea data-field="summary" rows="6"></textarea></label>
+        <label>Template<select id="templateSelect"></select></label>
+      </div>
+      <div class="form-tab" id="tab-experience"><div id="experienceList"></div><button class="add-btn" data-add="experience">+ Add experience</button></div>
+      <div class="form-tab" id="tab-education"><div id="educationList"></div><button class="add-btn" data-add="education">+ Add education</button></div>
+      <div class="form-tab" id="tab-skills">
+        <label>Skills <span class="hint">comma separated</span><textarea data-field="skills" rows="8"></textarea></label>
+        <label>Certifications <span class="hint">one per line</span><textarea data-field="certifications" rows="6"></textarea></label>
+      </div>
+      <div class="form-tab" id="tab-projects"><div id="projectsList"></div><button class="add-btn" data-add="projects">+ Add project</button></div>
+      <div class="panel-tip"><b>Tip:</b> Quantify impact — “cut test time by 30%” beats “helped with testing.”</div>
+    </aside>
+    <section class="preview-panel">
+      <div class="preview-toolbar">
+        <div><span class="preview-label">LIVE PREVIEW</span><span class="paper-size">A4 • 210 × 297 mm</span></div>
+        <div class="zoom-controls"><button id="zoomOut">−</button><span id="zoomValue">100%</span><button id="zoomIn">+</button></div>
+      </div>
+      <div class="paper-stage" id="paperStage"><div class="cv-paper template-modern" id="cvPaper"></div></div>
+    </section>
+  </div>
+</div>
+
+<div class="upgrade-modal" id="upgradeModal" aria-hidden="true">
+  <div class="upgrade-backdrop" data-close-upgrade></div>
+  <div class="upgrade-card">
+    <button class="upgrade-close" data-close-upgrade aria-label="Close">×</button>
+    <div class="upgrade-eyebrow">Unlock premium</div>
+    <h3 id="upgradeTitle">Unlock all 20 templates for ₹49</h3>
+    <p>One-time payment. No subscription. Yours forever on this device.</p>
+    <ul class="upgrade-list">
+      <li>✓ All 20 templates</li>
+      <li>✓ Unlimited PDF exports</li>
+      <li>✓ Lifetime access on this browser</li>
+    </ul>
+    <button class="btn btn-primary full" id="unlockBtn">Unlock for ₹49</button>
+    <small class="upgrade-note">Demo mode — this simulates a purchase. Wire to Razorpay later.</small>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+<script>
+const defaultData={template:"modern",name:"Arjun Mehta",title:"Embedded Systems Engineer",email:"arjun.mehta@email.com",phone:"+91 98765 43210",location:"Bengaluru, India",website:"arjunmehta.dev",linkedin:"linkedin.com/in/arjunmehta",summary:"Electronics engineer focused on embedded firmware, microcontrollers and connected products. Experienced in taking prototypes from hardware bring-up to reliable firmware and testable interfaces.",skills:"Embedded C, C, STM32, ESP32, UART, SPI, I2C, CAN, Git, PCB Debugging",certifications:"ARM Cortex-M Fundamentals\nEmbedded Systems Workshop",experience:[{role:"Embedded Systems Intern",company:"TechLab Innovations",location:"Bengaluru",dates:"2025 — 2026",details:"Built STM32 firmware modules and reusable peripheral drivers. Improved bench testing by introducing structured logs and repeatable validation steps."},{role:"Electronics R&D Intern",company:"Shiksha Sopan",location:"Kanpur",dates:"2024 — 2025",details:"Prototyped IoT and robotics systems using ESP32, sensors and motor controllers; documented interfaces and debug workflows for future builds."}],education:[{degree:"B.S. in Electronic Systems",school:"Indian Institute of Technology Madras",location:"India",dates:"2024 — 2028",details:"Focus: embedded systems, electronics, robotics and IoT."},{degree:"Higher Secondary",school:"Senior Secondary School",location:"India",dates:"2023 — 2024",details:"Science stream."}],projects:[{name:"IoT Weather Station",tech:"ESP32 · Sensors · MQTT",details:"Designed a connected weather node that samples environmental data and publishes structured readings for remote monitoring."},{name:"STM32 Sensor Hub",tech:"STM32 · C · UART / I2C",details:"Developed a modular firmware base for multiple sensors with clean peripheral interfaces and serial diagnostics."}]};
+
+const TEMPLATE_CONFIG={
+modern:{tier:"free",label:"Modern",desc:"Bold, crisp & technical",layout:"split"},
+minimal:{tier:"free",label:"Minimal",desc:"Quiet, premium & clean",layout:"single"},
+classic:{tier:"paid",label:"Classic",desc:"Timeless serif",layout:"split"},
+executive:{tier:"paid",label:"Executive",desc:"Centered & authoritative",layout:"center"},
+tech:{tier:"paid",label:"Tech",desc:"Dark rail, mono accents",layout:"rail"},
+elegant:{tier:"paid",label:"Elegant",desc:"Tinted sidebar",layout:"sidebar"},
+nordic:{tier:"paid",label:"Nordic",desc:"Airy & light",layout:"single"},
+bold:{tier:"paid",label:"Bold",desc:"Big header band",layout:"band"},
+compact:{tier:"paid",label:"Compact",desc:"Dense, one-page",layout:"single"},
+academic:{tier:"paid",label:"Academic",desc:"Formal & scholarly",layout:"center"},
+creative:{tier:"paid",label:"Creative",desc:"Gradient color band",layout:"band"},
+corporate:{tier:"paid",label:"Corporate",desc:"Navy & structured",layout:"split"},
+timeline:{tier:"paid",label:"Timeline",desc:"Date rail on the left",layout:"rail"},
+monochrome:{tier:"paid",label:"Monochrome",desc:"Pure black & white",layout:"split"},
+sidebarPro:{tier:"paid",label:"Sidebar Pro",desc:"Dark sidebar",layout:"sidebar"},
+gradient:{tier:"paid",label:"Gradient",desc:"Soft color fade",layout:"band"},
+editorial:{tier:"paid",label:"Editorial",desc:"Magazine layout",layout:"center"},
+sharp:{tier:"paid",label:"Sharp",desc:"Geometric & angular",layout:"split"},
+soft:{tier:"paid",label:"Soft",desc:"Rounded & friendly",layout:"band"},
+premium:{tier:"paid",label:"Premium",desc:"Gold on black",layout:"sidebar"}
+};
+const FREE_TEMPLATES=["modern","minimal"];
+const TEMPLATE_IDS=Object.keys(TEMPLATE_CONFIG);
+let data=loadData();
+let unlocked=localStorage.getItem("cvforge-unlocked")==="true";
+let zoom=100;
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+
+function loadData(){try{const s=localStorage.getItem("cvforge-data");if(!s)return structuredClone(defaultData);const p=JSON.parse(s);const m=structuredClone(defaultData);for(const k of Object.keys(p)){if(k==="experience"||k==="education"||k==="projects"){m[k]=Array.isArray(p[k])?p[k]:m[k];}else{m[k]=p[k];}}if(!TEMPLATE_IDS.includes(m.template))m.template="modern";return m;}catch{return structuredClone(defaultData);}}
+function persist(){try{localStorage.setItem("cvforge-data",JSON.stringify(data));}catch{}const el=$("#saveState");if(el){el.textContent="Saved locally";el.style.color="";}}
+let saveTimer;
+function queuePersist(){const el=$("#saveState");if(el){el.textContent="Saving…";el.style.color="";}clearTimeout(saveTimer);saveTimer=setTimeout(persist,350);}
+function esc(v=""){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function linesToHtml(t){return String(t||"").split(/\n+/).map(x=>x.trim()).filter(Boolean).map(x=>`<div>${esc(x)}</div>`).join("");}
+function stripBullet(l){return l.replace(/^\s*[-•*]\s+/,"");}
+function detailsToHtml(t){const p=String(t||"").split(/\n+/).map(x=>x.trim()).filter(Boolean);if(!p.length)return "";if(p.length===1)return `<p>${esc(stripBullet(p[0]))}</p>`;return `<ul>${p.map(x=>`<li>${esc(stripBullet(x))}</li>`).join("")}</ul>`;}
+function isLocked(id){return !unlocked&&!FREE_TEMPLATES.includes(id);}
+
+function renderCV(){
+  const p=$("#cvPaper");if(!p)return;
+  const id=TEMPLATE_IDS.includes(data.template)?data.template:"modern";
+  p.className=`cv-paper template-${id}`;
+  const exp=(data.experience||[]).map(e=>`<div class="cv-entry"><div class="cv-entry-head"><div class="cv-entry-title">${esc(e.role)}</div><div class="cv-entry-meta">${esc(e.dates)}</div></div><div class="cv-entry-sub">${esc(e.company)}${e.location?" · "+esc(e.location):""}</div>${detailsToHtml(e.details)}</div>`).join("");
+  const edu=(data.education||[]).map(e=>`<div class="cv-entry"><div class="cv-entry-head"><div class="cv-entry-title">${esc(e.degree)}</div><div class="cv-entry-meta">${esc(e.dates)}</div></div><div class="cv-entry-sub">${esc(e.school)}${e.location?" · "+esc(e.location):""}</div>${e.details?`<p>${esc(e.details)}</p>`:""}</div>`).join("");
+  const proj=(data.projects||[]).map(e=>`<div class="cv-entry"><div class="cv-entry-head"><div class="cv-entry-title">${esc(e.name)}</div></div><div class="cv-entry-sub">${esc(e.tech)}</div>${e.details?`<p>${esc(e.details)}</p>`:""}</div>`).join("");
+  const skills=`<div class="cv-skills">${String(data.skills||"").split(",").map(x=>x.trim()).filter(Boolean).map(x=>`<span class="cv-skill">${esc(x)}</span>`).join("")}</div>`;
+  const certs=data.certifications?`<div class="cv-section"><h4 class="cv-section-title">Certifications</h4><div class="cv-lines">${linesToHtml(data.certifications)}</div></div>`:"";
+  const cb=[data.email&&esc(data.email),data.phone&&esc(data.phone),data.location&&esc(data.location),data.website&&`<a href="#">${esc(data.website)}</a>`,data.linkedin&&`<a href="#">${esc(data.linkedin)}</a>`].filter(Boolean);
+  const cs=cb.join("<br>"),ci=cb.join(" · ");
+  const n=esc(data.name),t=esc(data.title);
+  const sum=data.summary?`<div class="cv-summary">${esc(data.summary)}</div>`:"";
+  const hSplit=`<header class="cv-header"><div><div class="cv-name">${n}</div><div class="cv-title">${t}</div></div><div class="cv-contact cv-contact-stacked">${cs}</div></header><div class="cv-rule"></div>${sum}`;
+  const hCenter=`<header class="cv-header cv-header-centered"><div class="cv-name">${n}</div><div class="cv-title">${t}</div><div class="cv-contact cv-contact-inline">${ci}</div></header><div class="cv-rule"></div>${sum}`;
+  const hBand=`<div class="cv-band"><div class="cv-name">${n}</div><div class="cv-title">${t}</div><div class="cv-contact cv-contact-inline">${ci}</div></div>${sum}`;
+  const layout=TEMPLATE_CONFIG[id].layout;
+  let html="";
+  if(layout==="single"){html=`${hSplit}<div class="cv-body-single"><div class="cv-section"><h4 class="cv-section-title">Experience</h4>${exp}</div><div class="cv-section"><h4 class="cv-section-title">Projects</h4>${proj}</div><div class="cv-section"><h4 class="cv-section-title">Education</h4>${edu}</div><div class="cv-section"><h4 class="cv-section-title">Skills</h4>${skills}</div>${certs}</div>`;}
+  else if(layout==="center"){html=`${hCenter}<div class="cv-body-single"><div class="cv-section"><h4 class="cv-section-title">Experience</h4>${exp}</div><div class="cv-section"><h4 class="cv-section-title">Education</h4>${edu}</div><div class="cv-section"><h4 class="cv-section-title">Projects</h4>${proj}</div><div class="cv-section"><h4 class="cv-section-title">Skills</h4>${skills}</div>${certs}</div>`;}
+  else if(layout==="rail"){html=`<div class="cv-rail-layout"><aside class="cv-rail"><div class="cv-name">${n}</div><div class="cv-title">${t}</div><div class="cv-contact cv-contact-stacked">${cs}</div><div class="cv-rail-divider"></div><div class="cv-section"><h4 class="cv-section-title">Skills</h4>${skills}</div><div class="cv-section"><h4 class="cv-section-title">Education</h4>${edu}</div>${certs}</aside><div class="cv-rail-main">${sum}<div class="cv-section"><h4 class="cv-section-title">Experience</h4>${exp}</div><div class="cv-section"><h4 class="cv-section-title">Projects</h4>${proj}</div></div></div>`;}
+  else if(layout==="sidebar"){html=`<div class="cv-sidebar-layout"><aside class="cv-sidebar-col"><div class="cv-name">${n}</div><div class="cv-title">${t}</div><div class="cv-contact cv-contact-stacked">${cs}</div><div class="cv-side-divider"></div><div class="cv-section"><h4 class="cv-section-title">Skills</h4>${skills}</div><div class="cv-section"><h4 class="cv-section-title">Education</h4>${edu}</div>${certs}</aside><div class="cv-sidebar-main">${sum}<div class="cv-section"><h4 class="cv-section-title">Experience</h4>${exp}</div><div class="cv-section"><h4 class="cv-section-title">Projects</h4>${proj}</div></div></div>`;}
+  else if(layout==="band"){html=`${hBand}<div class="cv-body-split"><div><div class="cv-section"><h4 class="cv-section-title">Experience</h4>${exp}</div><div class="cv-section"><h4 class="cv-section-title">Projects</h4>${proj}</div></div><aside><div class="cv-section"><h4 class="cv-section-title">Education</h4>${edu}</div><div class="cv-section"><h4 class="cv-section-title">Skills</h4>${skills}</div>${certs}</aside></div>`;}
+  else{html=`${hSplit}<div class="cv-body-split"><div><div class="cv-section"><h4 class="cv-section-title">Experience</h4>${exp}</div><div class="cv-section"><h4 class="cv-section-title">Projects</h4>${proj}</div></div><aside><div class="cv-section"><h4 class="cv-section-title">Education</h4>${edu}</div><div class="cv-section"><h4 class="cv-section-title">Skills</h4>${skills}</div>${certs}</aside></div>`;}
+  p.innerHTML=html;
+}
+
+function renderPreview(id){
+  const layout=TEMPLATE_CONFIG[id].layout;
+  const lines=`<div class="pv-lines"><i></i><i></i><i></i></div>`;
+  const cols=`<div class="pv-cols"><div><i></i><i></i><i></i></div><div><em></em><em></em><em></em></div></div>`;
+  const head=`<div class="pv-head"><b>NAME</b><span>Title</span></div><div class="pv-rule"></div>`;
+  switch(layout){
+    case "single":return `${head}${lines}<div style="height:8px"></div>${lines}`;
+    case "center":return `<div class="pv-center"><b class="pv-name">NAME</b><div class="pv-title">Title</div></div><div class="pv-rule"></div>${lines}`;
+    case "rail":return `<div class="pv-rail"><div><b>NAME</b><i></i><i></i><i></i></div><div class="pv-main"><em></em><em></em><em></em></div></div>`;
+    case "sidebar":return `<div class="pv-side"><div class="pv-side-col"><b>NAME</b><i></i><i></i><i></i></div><div class="pv-main"><em></em><em></em><em></em></div></div>`;
+    case "band":return `<div class="pv-band"><b>NAME</b><span>TITLE</span></div>${cols}`;
+    default:return `${head}${cols}`;
+  }
+}
+
+function renderShowcase(){
+  const g=$("#templateGrid");if(!g)return;
+  g.innerHTML=TEMPLATE_IDS.map(id=>{const t=TEMPLATE_CONFIG[id];const locked=isLocked(id);
+    return `<button class="template-card ${locked?'is-locked':''}" data-template-card="${id}">
+      <div class="template-preview preview-${id}">${renderPreview(id)}</div>
+      <div class="template-meta"><div><strong>${t.label}</strong><span>${t.desc}</span></div><span class="${locked?'lock-badge':'arrow'}">${locked?'🔒':'↗'}</span></div>
+    </button>`;}).join("");
+  syncTemplateOptions();
+}
+
+function syncTemplateOptions(){
+  const sel=$("#templateSelect");if(!sel)return;
+  sel.innerHTML=TEMPLATE_IDS.map(id=>{const c=TEMPLATE_CONFIG[id];const l=isLocked(id);
+    return `<option value="${id}" ${l?"disabled":""}>${c.label}${l?"  🔒":""}</option>`;}).join("");
+  sel.value=data.template;
+}
+
+let formWired=false;
+function syncForm(){$$("[data-field]").forEach(el=>{const k=el.dataset.field;if(k in data)el.value=data[k]??"";});const sel=$("#templateSelect");if(sel)sel.value=data.template;}
+function wireForm(){
+  if(formWired)return;formWired=true;
+  $$("[data-field]").forEach(el=>{el.addEventListener("input",()=>{data[el.dataset.field]=el.value;renderCV();queuePersist();});});
+  $("#templateSelect").addEventListener("change",()=>{const id=$("#templateSelect").value;if(isLocked(id)){openUpgrade(id);$("#templateSelect").value=data.template;return;}data.template=id;renderCV();queuePersist();});
+  document.addEventListener("input",e=>{const el=e.target.closest("[data-list-field]");if(!el)return;const ty=el.dataset.listField,ix=Number(el.dataset.index),k=el.dataset.key;if(!data[ty]||!data[ty][ix])return;data[ty][ix][k]=el.value;renderCV();queuePersist();});
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-remove]");if(!b)return;const ty=b.dataset.remove,ix=Number(b.dataset.index);if(!data[ty])return;data[ty].splice(ix,1);renderLists();renderCV();queuePersist();});
+}
+
+function itemForm(type,item,idx){
+  if(type==="experience")return `<div class="item-form"><button class="remove" data-remove="experience" data-index="${idx}">×</button><label>Role<input data-list-field="experience" data-index="${idx}" data-key="role" value="${esc(item.role)}"></label><div class="form-two"><label>Company<input data-list-field="experience" data-index="${idx}" data-key="company" value="${esc(item.company)}"></label><label>Dates<input data-list-field="experience" data-index="${idx}" data-key="dates" value="${esc(item.dates)}"></label></div><label>Location<input data-list-field="experience" data-index="${idx}" data-key="location" value="${esc(item.location)}"></label><label>Details<textarea data-list-field="experience" data-index="${idx}" data-key="details" rows="4">${esc(item.details)}</textarea></label></div>`;
+  if(type==="education")return `<div class="item-form"><button class="remove" data-remove="education" data-index="${idx}">×</button><label>Degree<input data-list-field="education" data-index="${idx}" data-key="degree" value="${esc(item.degree)}"></label><div class="form-two"><label>School<input data-list-field="education" data-index="${idx}" data-key="school" value="${esc(item.school)}"></label><label>Dates<input data-list-field="education" data-index="${idx}" data-key="dates" value="${esc(item.dates)}"></label></div><label>Location<input data-list-field="education" data-index="${idx}" data-key="location" value="${esc(item.location)}"></label><label>Details<textarea data-list-field="education" data-index="${idx}" data-key="details" rows="3">${esc(item.details)}</textarea></label></div>`;
+  return `<div class="item-form"><button class="remove" data-remove="projects" data-index="${idx}">×</button><label>Project name<input data-list-field="projects" data-index="${idx}" data-key="name" value="${esc(item.name)}"></label><label>Tech stack<input data-list-field="projects" data-index="${idx}" data-key="tech" value="${esc(item.tech)}"></label><label>Details<textarea data-list-field="projects" data-index="${idx}" data-key="details" rows="4">${esc(item.details)}</textarea></label></div>`;
+}
+
+function renderLists(){["experience","education","projects"].forEach(t=>{const el=$(`#${t}List`);if(el)el.innerHTML=(data[t]||[]).map((it,i)=>itemForm(t,it,i)).join("");});}
+
+let lastFocused=null;
+function openBuilder(){lastFocused=document.activeElement;const s=$("#editorShell");s.classList.add("open");s.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";syncForm();renderLists();renderCV();syncTemplateOptions();const c=$("#closeBuilder");if(c)c.focus();}
+function closeBuilder(){const s=$("#editorShell");s.classList.remove("open");s.setAttribute("aria-hidden","true");document.body.style.overflow="";if(lastFocused&&lastFocused.focus)lastFocused.focus();}
+
+function openUpgrade(id){const m=$("#upgradeModal");if(!m)return;const t=id?TEMPLATE_CONFIG[id]:null;const el=$("#upgradeTitle");if(el)el.textContent=t?`“${t.label}” is part of the ₹49 bundle`:`Unlock all 20 templates for ₹49`;m.classList.add("open");m.setAttribute("aria-hidden","false");}
+function closeUpgrade(){const m=$("#upgradeModal");if(!m)return;m.classList.remove("open");m.setAttribute("aria-hidden","true");}
+function doUnlock(){unlocked=true;localStorage.setItem("cvforge-unlocked","true");closeUpgrade();renderShowcase();renderLists();}
+
+function setupTabs(){
+  $$(".tab").forEach(tab=>{tab.addEventListener("click",()=>{$$(".tab").forEach(t=>t.classList.remove("active"));$$(".form-tab").forEach(t=>t.classList.remove("active"));tab.classList.add("active");const p=$(`#tab-${tab.dataset.tab}`);if(p)p.classList.add("active");});});
+  $$("[data-add]").forEach(b=>{b.addEventListener("click",()=>{const t=b.dataset.add;if(t==="experience")data.experience.push({role:"",company:"",location:"",dates:"",details:""});if(t==="education")data.education.push({degree:"",school:"",location:"",dates:"",details:""});if(t==="projects")data.projects.push({name:"",tech:"",details:""});renderLists();renderCV();queuePersist();});});
+}
+
+function setupTemplates(){document.addEventListener("click",e=>{const c=e.target.closest("[data-template-card]");if(!c)return;const id=c.dataset.templateCard;if(isLocked(id)){openUpgrade(id);return;}data.template=id;const s=$("#templateSelect");if(s)s.value=id;openBuilder();queuePersist();});}
+
+function setupZoom(){function apply(){document.documentElement.style.setProperty("--paper-scale",(zoom/100).toFixed(2));const el=$("#zoomValue");if(el)el.textContent=`${zoom}%`;}const zin=$("#zoomIn"),zo=$("#zoomOut");if(zin)zin.addEventListener("click",()=>{zoom=Math.min(115,zoom+5);apply();});if(zo)zo.addEventListener("click",()=>{zoom=Math.max(55,zoom-5);apply();});apply();}
+
+async function downloadPDF(){
+  const paper=$("#cvPaper"),btn=$("#downloadBtn");if(!paper||!btn)return;
+  const orig=btn.textContent;btn.textContent="Preparing…";btn.disabled=true;
+  const prev=document.documentElement.style.getPropertyValue("--paper-scale");
+  document.documentElement.style.setProperty("--paper-scale","1");
+  try{
+    if(window.html2pdf){
+      await html2pdf().set({margin:0,filename:`${(data.name||"my-cv").replace(/[^\w\d]+/g,"-").toLowerCase()}.pdf`,image:{type:"jpeg",quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:"#ffffff",scrollX:0,scrollY:0},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}}).from(paper).save();
+    }else{window.print();}
+  }catch(e){console.warn(e);window.print();}
+  finally{btn.textContent=orig;btn.disabled=false;if(prev!=="")document.documentElement.style.setProperty("--paper-scale",prev);else document.documentElement.style.removeProperty("--paper-scale");}
+}
+
+function resetData(){if(!confirm("Reset this CV to the starter example?"))return;data=structuredClone(defaultData);localStorage.removeItem("cvforge-data");syncForm();renderLists();renderCV();}
+
+function init(){
+  [["openBuilderTop","openBuilder"],["openBuilderHero","openBuilder"],["openBuilderFinal","openBuilder"],["priceFree","openBuilder"]].forEach(([id,fn])=>{const el=$("#"+id);if(el)el.addEventListener("click",()=>window[fn]());});
+  const pp=$("#pricePaid");if(pp)pp.addEventListener("click",()=>{if(unlocked)openBuilder();else openUpgrade(null);});
+  $("#closeBuilder").addEventListener("click",closeBuilder);
+  $("#downloadBtn").addEventListener("click",downloadPDF);
+  $("#resetBtn").addEventListener("click",resetData);
+  $$("[data-close-upgrade]").forEach(el=>el.addEventListener("click",closeUpgrade));
+  const ub=$("#unlockBtn");if(ub)ub.addEventListener("click",doUnlock);
+  wireForm();setupTabs();setupTemplates();setupZoom();renderShowcase();syncForm();renderCV();
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){if($("#upgradeModal").classList.contains("open"))closeUpgrade();else if($("#editorShell").classList.contains("open"))closeBuilder();}});
+}
+init();
+</script>
+</body>
+</html>
